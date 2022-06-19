@@ -3,16 +3,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    static int matrisLength = 10;
+    static int matrisLength = 5;
     static int[][] gameBoard = new int[matrisLength][matrisLength];
-    static List<Possibility> possibilities = new ArrayList<>();
 
     public static void main(String[] args) {
 
+        List<Possibility> possibilities = new ArrayList<>();
+
         boolean result = false;
 
-        for (int startXPosition = 1; startXPosition<2; startXPosition++) {
-            for (int startYPosition = 1; startYPosition<2; startYPosition++) {
+        for (int startXPosition = 0; startXPosition<matrisLength; startXPosition++) {
+            for (int startYPosition = 0; startYPosition<matrisLength; startYPosition++) {
 
                 gameBoard = new int[matrisLength][matrisLength];
 
@@ -33,7 +34,6 @@ public class Main {
         if (result){
             System.out.println(Arrays.deepToString(gameBoard));
         } else {
-            System.out.println(Arrays.deepToString(gameBoard));
             System.out.println("istenen sonuca ulasilamadi!");
         }
     }
@@ -50,8 +50,8 @@ public class Main {
             Coordinate coordinate = possibility.getPossibleCoordinates().get(possibility.getTriedMoves());
             possibility.setTriedMoves(possibility.getTriedMoves()+1);
             Possibility possibility_ = GetPossibleMoves(coordinate.getX(), coordinate.getY(), possibility.getCurrentElement()+1);
+            possibilities.add(possibility_);
             if(possibility_.getPossibleMoves()>0){
-                possibilities.add(possibility_);
                 boolean result = IteratePossibility(possibilities);
                 if(result){return result;}
             } else {
@@ -63,8 +63,9 @@ public class Main {
                 }
             }
         } else {
-            Possibility toBeRemoved = possibilities.get(possibilities.size()-1);
-            gameBoard[toBeRemoved.getCurrentCoordinate().getX()][toBeRemoved.getCurrentCoordinate().getY()] = 0;
+            if(possibility.getCurrentCoordinate() != null) {
+                gameBoard[possibility.getCurrentCoordinate().getX()][possibility.getCurrentCoordinate().getY()] = 0;
+            }
             possibilities.remove(possibilities.size()-1);
             boolean result = IteratePossibility(possibilities);
             if(result){return result;}
