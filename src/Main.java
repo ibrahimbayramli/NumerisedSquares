@@ -12,8 +12,8 @@ public class Main {
 
         boolean result = false;
 
-        for (int startXPosition = 0; startXPosition<matrisLength; startXPosition++) {
-            for (int startYPosition = 0; startYPosition<matrisLength; startYPosition++) {
+        for (int startXPosition = 3; startXPosition<matrisLength; startXPosition++) {
+            for (int startYPosition = 4; startYPosition<matrisLength; startYPosition++) {
 
                 gameBoard = new int[matrisLength][matrisLength];
 
@@ -32,7 +32,13 @@ public class Main {
             }
         }
         if (result){
-            System.out.println(Arrays.deepToString(gameBoard));
+            for(int[] i:gameBoard){
+                for (int j:i){
+                    System.out.print(j+"\t");
+                }
+                System.out.println("");
+            }
+
         } else {
             System.out.println("istenen sonuca ulasilamadi!");
         }
